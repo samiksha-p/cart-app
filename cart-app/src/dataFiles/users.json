@@ -1,0 +1,60 @@
+{
+    "users": [
+        {
+            "name": "test",
+            "lastName": "user",
+            "dp": "/src/assets/users/merrisa.jpg",
+            "userId": "z",
+            "password": "z"
+        },
+        {
+            "name": "Marissa",
+            "lastName": "Mayer",
+            "dp": "/src/assets/users/merrisa.jpg",
+            "userId": "Marissa.mayer",
+            "password": "12345"
+        },
+        {
+            "name": "Eric",
+            "lastName": "Schmidt",
+            "dp": "../assets/users/eric.jpg",
+            "userId": "eric.schmidt",
+            "password": "12345"
+        },
+        {
+            "name": "elon",
+            "lastName": "musk",
+            "dp": "../assets/users/elon.png",
+            "userId": "elon.musk",
+            "password": "12345"
+        },
+        {
+            "name": "Your Story",
+            "lastName": "NA",
+            "dp": "../assets/users/yourstory.png",
+            "userId": "yourstory",
+            "password": "12345"
+        },
+        {
+            "name": "National Geopraphic",
+            "lastName": "NA",
+            "dp": "../assets/users/natgeo.jpg",
+            "userId": "natgeo",
+            "password": "12345"
+        },
+        {
+            "name": "Tripoto",
+            "lastName": "NA",
+            "dp": "../assets/users/tripoto.jpg",
+            "userId": "tripoto",
+            "password": "12345"
+        },
+        {
+            "name": "You News",
+            "lastName": "NA",
+            "dp": "../assets/users/younews.png",
+            "userId": "younews",
+            "password": "12345"
+        }
+    ]
+}
