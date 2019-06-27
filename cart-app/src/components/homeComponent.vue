@@ -2,9 +2,15 @@
   <div>
     <v-progress-circular class="loading" v-if="!isFetching" :size="100" :width="7" indeterminate></v-progress-circular>
     <v-layout justify-center v-if="isFetching">
-      <v-flex>
+       <!--<v-carousel-item>
         <!-- class="pa-5 ma-5"-->
-        <v-card elevation="24" max-width="800" class="mx-auto">
+        <!-- <v-card elevation="24" max-width="1000" class="mx-auto">
+          <v-flex xs12 offset-xs0 style='text-align:center'>
+            <v-card color="">
+              <v-card-text  class="display-1">Deals of the day</v-card-text>
+            </v-card>
+          </v-flex> -->
+          <!--
           <v-carousel hide-delimiters>
             <v-carousel-item
               v-for="(item,i) in deals"
@@ -12,45 +18,44 @@
               @click="selectedCard(item.categoryId)"
               :src="item.image"
             >
+           <v-layout row wrap>
+              <v-flex xs10 offset-xs1>
+                <v-card dark color="red">
+                  <v-card-text style='text-align:center' class="display-1">{{ item.name }}</v-card-text>
+                </v-card>
+              </v-flex>
+            </v-layout>
               <!-- <v-layout align-center fill-height justify-center>
                 <div class="display-1">{{ item.name }}</div>
               </v-layout> -->
-            </v-carousel-item>
-          </v-carousel>
+           <!-- </v-carousel-item>
+          </v-carousel> 
         </v-card>
-      </v-flex>
+      </v-flex>-->
 
       <!--
     <v-flex xs12 md12>
       <v-toolbar color="cyan lighten-4">
         <v-toolbar-title>Categories</v-toolbar-title>
         <v-spacer></v-spacer>
-      </v-toolbar>
-
+      </v-toolbar> -->
+    <v-flex style='text-align:center'>
       <v-card>
         <v-container  fluid grid-list-md>
           <v-layout row wrap >
-            <v-flex  xs6 md4 v-for="card in categories" :key="card">
-              <v-card style="cursor: pointer" @click='selectCard(card)'>
+            <v-flex  xs6 md6 v-for="card in deals" :key="card">
+              <v-card style="cursor: pointer" @click='selectedCard(card.categoryId)'>
               <v-card-title>
-                <div class="text-truncate">
-                   <v-tooltip bottom>
-                      <template v-slot:activator="{ on }">
-                        <span v-on="on"><strong>{{categoryList[card].name}}</strong></span>
-                      </template>
-                      <span>{{categoryList[card].name}}</span>
-                   </v-tooltip>
-                </div>
+               <span>{{card.name}}</span>
                 </v-card-title>
-                <v-img :src="categoryList[card].image" contain height="200px">
+                <v-img :src="card.image" contain height="250px">
               </v-img>
               </v-card>
             </v-flex>
           </v-layout>
         </v-container>
-        <v-btn color="cyan lighten-1" @click='selectCard("All")'>View All</v-btn>
       </v-card>
-      </v-flex>-->
+      </v-flex>
     </v-layout>
   </div>
 </template>
@@ -123,7 +128,7 @@ export default {
             )
           )
         ];
-      } else return {};
+      } else return [];
     },
     categoryList() {
       if (this.$store.getters && this.$store.getters.getCategory) {

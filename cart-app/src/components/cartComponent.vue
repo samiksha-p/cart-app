@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="headerSpace">
     <v-layout justify-end>
       <v-flex xs12>
         <v-toolbar color="grey lighten-2">
@@ -51,9 +51,9 @@
                       </v-card-title>
 
                         <div >
-                              <span v-if='deal' class='font-weight-bold'>Rs: {{(card.cost *  card.count) -((card.cost * card.count) * deal[card.categoryId].discount)/100}}</span>
-                              <span class='rateClass'>Rs : {{card.cost * card.count}}</span>
-                              <span v-if='deal' style='color:green'>{{deal[card.categoryId].discount}} off</span>
+                              <span v-if='deal' class='font-weight-bold'>Rs: {{(card.cost *  card.count) -( ( deal[card.categoryId] ? ((card.cost * card.count) * deal[card.categoryId].discount)/100 : 0))}}</span>
+                              <span v-if='deal && deal[card.categoryId]' class='rateClass'>Rs : {{card.cost * card.count}}</span>
+                              <span v-if='deal && deal[card.categoryId]' style='color:green'>{{deal[card.categoryId].discount}} off</span>
                         </div>
                     </v-flex>
                   </v-layout>
@@ -63,7 +63,7 @@
                         :disabled="card.count == 1"
                         large
                         @click="decreaseCart(card)"
-                        color="amber darken-1"
+                        color="cyan darken-1"
                       >remove_circle</v-icon>
                     </v-avatar>
                     <span class="boxClass">{{card.count}}</span>
@@ -73,15 +73,15 @@
                         :disabled="card.count ==10"
                         large
                         @click="increaseCart(card)"
-                        color="amber darken-1"
+                        color="cyan darken-1"
                       >add_circle</v-icon>
                     </v-avatar>
                   </v-card-actions>
                 </v-card>
               </v-flex>
-              <v-btn v-if="cartItems.length>0" color="amber darken-2" @click="placeOrder">Place Order</v-btn>
+              <v-btn v-if="cartItems.length>0" color="cyan darken-2" @click="placeOrder">Place Order</v-btn>
               <h3 v-if="cartItems.length ==0">Your cart is empty. Please add products</h3>
-              <v-btn route :to="home" color="amber darken-2">Check products</v-btn>
+              <v-btn route :to="home" color="cyan darken-2">Check products</v-btn>
             </v-layout>
           </v-container>
         </v-card>
@@ -136,8 +136,15 @@ export default {
       this.$store.dispatch("removeFromCart", iData);
     },
     placeOrder() {
-      this.$store.dispatch("emptyCart");
-      alert("Order placed successfully..!");
+      if (localStorage.getItem("loggedUser")) {
+        this.$store.dispatch("emptyCart");
+        alert("Order placed successfully..!");
+      } else {
+        alert('Kindly login first..!!')
+        console.log(this.signInFlag);
+        this.$router.push("/login");
+      }
+      
     }
   },
   computed: {
@@ -150,7 +157,7 @@ export default {
       var amt = 0;
       if (this.$store.getters && this.$store.getters.getCartItems) {
         this.$store.getters.getCartItems.forEach(element => {
-          amt += (element.cost * element.count) - ((element.cost * element.count) * this.deal[element.categoryId].discount)/100;
+          amt += (element.cost * element.count) - (this.deal[element.categoryId] ? ((element.cost * element.count) * ( this.deal[element.categoryId].discount)/100) : 0);
         });
       }
       return amt;
@@ -189,5 +196,9 @@ export default {
 .rateClass {
   margin-left: 5%;
   text-decoration: line-through;
+}
+
+.headerSpace {
+  margin-top: 5%
 }
 </style>

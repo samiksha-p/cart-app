@@ -60,9 +60,7 @@
                 <v-spacer></v-spacer>
                 <v-icon
                   color="cyan lighten-1"
-                  router
-                  :to="loginPath"
-                  @click="signInFlag =!signInFlag"
+                  @click="toHome"
                 >logout</v-icon>
               </v-card-actions>
             </v-card>
@@ -84,7 +82,7 @@ export default {
       password: "",
       typedText: "",
       show: false,
-      loginPath: { path: "/login" }
+      loginPath: { path: "/home" }
     };
   },
   created() {
@@ -135,8 +133,8 @@ export default {
        console.log(iData);
        this.$router.push({path :'/detail/'+iData.productId})
     },
-    signUp() {
-      alert("in signUp");
+    toHome() {
+        this.$router.push("/home");
     }
   },
   computed: {
